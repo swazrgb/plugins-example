@@ -1,0 +1,62 @@
+// base conventions for any java project (dependency management, annotations, etc)
+
+plugins {
+    id 'java'
+}
+
+group = 'my.sample.plugins'
+version = '1.0.0'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+repositories {
+    mavenLocal()
+
+    maven {
+        url = 'https://raw.githubusercontent.com/open-osrs/hosting/master'
+        content {
+            includeGroupByRegex 'com\\.openosrs.*'
+            includeGroupByRegex 'net\\.runelite\\.fernflower.*'
+        }
+    }
+
+    maven {
+        url = 'https://repo.runelite.net'
+        content {
+            includeGroupByRegex 'net\\.runelite.*'
+        }
+    }
+
+    mavenCentral()
+}
+
+dependencies {
+    // lombok
+    compileOnly(group: 'org.projectlombok', name: 'lombok', version: Versions.lombokVersion)
+    annotationProcessor(group: 'org.projectlombok', name: 'lombok', version: Versions.lombokVersion)
+
+    // pf4j
+    annotationProcessor(group: 'org.pf4j', name: 'pf4j', version: '3.3.1')
+    compileOnly(group: "org.pf4j", name: "pf4j", version: "3.3.1")
+
+    // junit
+    testImplementation(group: "junit", name: "junit", version: "4.13")
+
+    // annotations
+    compileOnly(group: "org.jetbrains", name: "annotations", version: "20.1.0")
+
+    // logging
+    compileOnly(group: "org.slf4j", name: "slf4j-api", version: "1.7.12")
+
+    // openosrs
+    compileOnly(group: 'com.openosrs', name: 'http-api', version: Versions.openosrsVersion)
+    compileOnly(group: 'com.openosrs', name: 'runelite-api', version: Versions.openosrsVersion)
+    compileOnly(group: 'com.openosrs', name: 'runelite-client', version: Versions.openosrsVersion)
+    compileOnly(group: 'com.openosrs.rs', name: 'runescape-client', version: Versions.openosrsVersion)
+    compileOnly(group: 'com.openosrs.rs', name: 'runescape-api', version: Versions.openosrsVersion)
+
+    // necessary because oprs does not expose this as api dependency
+    compileOnly(group: "com.google.inject", name: "guice", version: "4.2.3", classifier: "no_aop")
+}

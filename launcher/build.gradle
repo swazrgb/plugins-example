@@ -1,0 +1,14 @@
+plugins {
+    id 'custom.java-conventions'
+}
+
+dependencies {
+    rootProject.subprojects.each {
+        if (it.findProperty('includeInLauncher')) {
+            implementation(it)
+        }
+    }
+
+    implementation(group: 'com.openosrs', name: 'runelite-client', version: Versions.openosrsVersion)
+    implementation(project(":hotswap-agent"))
+}

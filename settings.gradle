@@ -1,0 +1,5 @@
+rootProject.name = 'custom-plugins'
+
+include 'launcher'
+include 'hotswap-agent'
+include 'sample-plugin'

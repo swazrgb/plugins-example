@@ -1,0 +1,14 @@
+plugins {
+    id 'custom.java-conventions'
+}
+
+dependencies {
+
+
+    testImplementation(group: 'com.openosrs', name: 'runelite-client', version: Versions.openosrsVersion)
+}
+
+task copyDeps(type: Copy) {
+    into("./build/deps/")
+    from(configurations.runtimeClasspath)
+}
